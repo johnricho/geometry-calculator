@@ -18,7 +18,7 @@ class Result
         $this->calculator = $calculator;
     }
 
-    public function shape(): Shape
+    public function object()
     {
         $shape = $this->calculator->shapes[0];
         $type = $this->calculator->shape($shape);
@@ -40,6 +40,27 @@ class Result
     /**
      * Output the calculated result in toArray
      */
+    public function shape(): array
+    {
+        if (!$this->calculator instanceof Calculator) {
+            throw new Exception('Calculator invalid exception '. gettype($this->calculator), 1);
+        }
+       $shape = $this->calculator->shapes[0];
+        $parameters = $this->getParameters($shape);
+        $current = [
+            'type' => strtolower($this->calculator->shape($shape)),
+            'surface' => round($shape->surface(), 2),
+            'diameter' => round($shape->diameter(), 2),
+            'circumference' => round($shape->circumference(), 2),
+        ];
+        $shape_data = array_merge($parameters, $current);
+        array_push($parameters, $shape_data);
+        return $shape_data;
+    }
+    
+    /**
+     * Output the calculated result in toArray
+     */
     public function shapes(): array
     {
         $data = [];
@@ -49,7 +70,7 @@ class Result
         foreach ($this->calculator->shapes as $shape) {
             $parameters = $this->getParameters($shape);
             $current = [
-                'type' => $this->calculator->shape($shape),
+                'type' => strtolower($this->calculator->shape($shape)),
                 'surface' => round($shape->surface(), 2),
                 'diameter' => round($shape->diameter(), 2),
                 'circumference' => round($shape->circumference(), 2),

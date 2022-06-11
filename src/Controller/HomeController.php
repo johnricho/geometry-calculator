@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends AbstractController
 {
@@ -24,10 +25,23 @@ class HomeController extends AbstractController
     }
 
     #[Route('/shape', name: 'shape_calculator')]
-    public function calculator(): JsonResponse
+    public function calculator(Request $request): JsonResponse
     {
         try {
-            $shapes = [new Circle(2.0), new Triangle(3.0, 4.0, 5.0)];
+            if ((!$request->query->has('radius') && !$request->query->has('a') &&
+                !$request->query->has('b') && !$request->query->has('c')) ||
+                (!$request->request->has('a') && !$request->request->has('b') && !$request->request->has('c')
+            )) {
+                return $this->json([
+                    'status' => 'success',
+                    'message' => 'Shape data required',
+                ]);
+            }
+
+            $shapes = [
+                new Circle($request->radius),
+                new Triangle($request->a, $request->b, $request->c)
+            ];
             $calculator = new Calculator($shapes);
             $result = new Result($calculator);
 
