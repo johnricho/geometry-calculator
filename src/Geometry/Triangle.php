@@ -27,7 +27,9 @@ class Triangle implements ShapeInterface
      */
     public function surface(): float
     {
-        if (($this->a < 0 || $this->b < 0 || $this->c < 0) || ($this->a + $this->b <= $this->c) || ($this->a + $this->c <= $this->b) || ($this->b + $this->c <= $this->a)) {
+        if (($this->a < 0 || $this->b < 0 || $this->c < 0) ||
+        ($this->a + $this->b <= $this->c) || ($this->a + $this->c <= $this->b) ||
+        ($this->b + $this->c <= $this->a)) {
             throw new Exception("Error processing request", 1);
         }
         $s = ($this->a + $this->b + $this->c) / 2;

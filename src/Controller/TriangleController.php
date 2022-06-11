@@ -26,7 +26,7 @@ class TriangleController extends AbstractController
     }
 
     #[Route('/triangle/{a}/{b}/{c}', name: 'calculate_triangle', methods: 'GET')]
-    public function triangle(Request $request, float $a, float $b, float $c, SerializerInterface $serializer): JsonResponse
+    public function triangle(Request $request, float $a, float $b, float $c): JsonResponse
     {
         try {
             $shapes = [new Triangle($a, $b, $c)];
