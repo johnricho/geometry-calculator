@@ -2,10 +2,12 @@
 
 namespace App\Geometry;
 
-class Circle implements Shape
+use App\Interface\ShapeInterface;
+
+class Circle implements ShapeInterface
 {
 
-    public float $radius;
+    private float $radius;
 
     /**
      * @param float $radius
@@ -16,27 +18,32 @@ class Circle implements Shape
     }
     
     /**
-     * Calculate surface area of a circle 
+     * Calculate surface area of a circle
      */
-    public function surface(): float {
-        return pi() * pow($this->radius, 2);;
+    public function surface(): float
+    {
+        return pi() * pow($this->radius, 2);
+        ;
     }
 
     /**
-     * Calculate diameter of a circle 
+     * Calculate diameter of a circle
      */
-    public function diameter(): float {
+    public function diameter(): float
+    {
         return 2 * $this->radius;
     }
     
     /**
-     * Calculate circumference of a circle 
+     * Calculate circumference of a circle
      */
-    public function circumference(): float {
+    public function circumference(): float
+    {
         return 2 * pi() * $this->radius;
     }
     
-    public function getRadius(): float {
+    public function getRadius(): float
+    {
         return $this->radius;
     }
 

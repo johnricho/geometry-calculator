@@ -5,10 +5,10 @@ namespace App\Entity;
 class Shape
 {
     
-    private $type;
-    private $surface;
-    private $diameter;
-    private $circumference;
+    private ?string $type;
+    private ?float $surface;
+    private ?float $diameter;
+    private ?float $circumference;
 
     public function getType(): ?string
     {
@@ -57,5 +57,4 @@ class Shape
 
         return $this;
     }
-    
 }

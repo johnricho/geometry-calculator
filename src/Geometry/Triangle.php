@@ -2,9 +2,10 @@
 
 namespace App\Geometry;
 
+use App\Interface\ShapeInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
-class Triangle implements Shape
+class Triangle implements ShapeInterface
 {
 
     private float $a;
@@ -22,10 +23,11 @@ class Triangle implements Shape
     }
 
     /**
-     * Calculate surface area of a triangle 
+     * Calculate surface area of a triangle
      */
-    public function surface(): float {
-        if (($this->a < 0 || $this->b < 0 || $this->c < 0) || ($this->a + $this->b <= $this->c) || ($this->a + $this->c <= $this->b) || ($this->b + $this->c <= $this->a)){
+    public function surface(): float
+    {
+        if (($this->a < 0 || $this->b < 0 || $this->c < 0) || ($this->a + $this->b <= $this->c) || ($this->a + $this->c <= $this->b) || ($this->b + $this->c <= $this->a)) {
             throw new Exception("Error processing request", 1);
         }
         $s = ($this->a + $this->b + $this->c) / 2;
@@ -33,20 +35,23 @@ class Triangle implements Shape
     }
 
     /**
-     * Calculate diameter of a triangle 
+     * Calculate diameter of a triangle
      */
-    public function diameter(): float{
+    public function diameter(): float
+    {
         return ($this->b * $this->a) / 2;
     }
     
     /**
-     * Calculate circumference of a triangle 
+     * Calculate circumference of a triangle
      */
-    public function circumference(): float {
+    public function circumference(): float
+    {
         return($this->a * $this->a * (pi() / 3));
     }
 
-    public function getA(): float {
+    public function getA(): float
+    {
         return $this->a;
     }
 
@@ -56,7 +61,8 @@ class Triangle implements Shape
         return $this;
     }
 
-    public function getB(): float {
+    public function getB(): float
+    {
         return $this->b;
     }
 
@@ -66,7 +72,8 @@ class Triangle implements Shape
         return $this;
     }
 
-    public function getC(): float {
+    public function getC(): float
+    {
         return $this->c;
     }
 
@@ -75,5 +82,4 @@ class Triangle implements Shape
         $this->c = $c;
         return $this;
     }
-
 }
