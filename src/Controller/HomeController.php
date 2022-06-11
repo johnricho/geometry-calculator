@@ -6,16 +6,17 @@ use App\Geometry\Circle;
 use App\Geometry\Result;
 use App\Geometry\Triangle;
 use App\Geometry\Calculator;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends AbstractController
 {
+
     #[Route('/', name: 'welcome')]
-    public function index(): JsonResponse
+    public function index()
     {
         return $this->json([
             'status' => 'success',

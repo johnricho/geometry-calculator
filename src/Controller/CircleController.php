@@ -29,7 +29,6 @@ class CircleController extends AbstractController
             $shapes = [new Circle($radius)];
             $calculate = new Calculator($shapes);
             $calculate_result = new Result($calculate);
-
             $circle = $calculate_result->shape();
 
             return $this->json([

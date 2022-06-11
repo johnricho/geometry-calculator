@@ -2,12 +2,13 @@
 
 namespace App\Geometry;
 
-use App\Interface\GeometryInterface;
 use App\Interface\ShapeInterface;
+use App\Interface\GeometryInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
 class Calculator implements GeometryInterface
 {
+    private $container;
     public array $shapes;
 
     /**

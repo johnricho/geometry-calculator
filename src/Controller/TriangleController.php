@@ -5,11 +5,9 @@ namespace App\Controller;
 use App\Geometry\Result;
 use App\Geometry\Triangle;
 use App\Geometry\Calculator;
-use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Config\Definition\Exception\Exception;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TriangleController extends AbstractController
@@ -52,7 +50,7 @@ class TriangleController extends AbstractController
             $calculate = new Calculator($shapes);
             $calculate_result = new Result($calculate);
             $triangle = $calculate_result->shape();
-            
+
             return $this->json([
                 'status' => 'success',
                 'message' => 'Shape calculated',

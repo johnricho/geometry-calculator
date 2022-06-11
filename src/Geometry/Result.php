@@ -4,6 +4,7 @@ namespace App\Geometry;
 
 use App\Entity\Shape;
 use ReflectionException;
+
 use Symfony\Component\Config\Definition\Exception\Exception;
 
 class Result
@@ -16,6 +17,9 @@ class Result
     public function __construct(Calculator $calculator)
     {
         $this->calculator = $calculator;
+        $translator = $this->container->get('translator');
+		// Get a repository
+		$cookieRep = $this->em->getRepository('PlaygroundCookieJarBundle:Cookie');
     }
 
     public function object()
