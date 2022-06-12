@@ -6,7 +6,7 @@ A Symfony based geometry calculation api developed for Horus Music that allows c
 - `GET /`,  home endpoint.
 - `GET /circle/{radius}`, calculate surface area, diameter and circumfrence of circle.
 - `GET /triangle/{a}/{b}/{c}` calculate surface area, diameter and circumfrence of triangle.
-- `GET /shape??radius=3&a=3&b=4&c=5`,  calculate surface areas, diameters and circumfrences of different shapes (circle,triangle).
+- `GET /shape??radius={radiud}&a={a}&b={b}&c={c}`,  calculate surface areas, diameters and circumfrences of different shapes (circle,triangle).
 
 ## Installation
 
