@@ -19,11 +19,11 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+            - '../src/Geometry/'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
     app.geometry_calculator:
         class: App\Geometry\Calculator
-        autowire: false
-        arguments: ["@service_container"]
+        public: true

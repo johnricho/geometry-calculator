@@ -7,12 +7,14 @@ use App\Geometry\Triangle;
 use App\Geometry\Calculator;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Contracts\Service\ServiceSubscriberTrait;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TriangleController extends AbstractController
 {
-
+    use ServiceSubscriberTrait;
+   
     #[Route('/triangle', name: 'triangle')]
     public function index(): JsonResponse
     {
@@ -24,7 +26,7 @@ class TriangleController extends AbstractController
 
 
     #[Route('/triangle/{a}', name: 'angle_a')]
-    public function angle_a(): JsonResponse
+    public function angleA(): JsonResponse
     {
         return $this->json([
             'status' => 'failed',
@@ -34,7 +36,7 @@ class TriangleController extends AbstractController
 
 
     #[Route('/triangle/{a}/{b}', name: 'angle_b')]
-    public function angle_b(): JsonResponse
+    public function angleB(): JsonResponse
     {
         return $this->json([
             'status' => 'success',

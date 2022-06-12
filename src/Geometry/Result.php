@@ -17,9 +17,6 @@ class Result
     public function __construct(Calculator $calculator)
     {
         $this->calculator = $calculator;
-        $translator = $this->container->get('translator');
-		// Get a repository
-		$cookieRep = $this->em->getRepository('PlaygroundCookieJarBundle:Cookie');
     }
 
     public function object()
@@ -49,7 +46,7 @@ class Result
         if (!$this->calculator instanceof Calculator) {
             throw new Exception('Calculator invalid exception '. gettype($this->calculator), 1);
         }
-       $shape = $this->calculator->shapes[0];
+        $shape = $this->calculator->shapes[0];
         $parameters = $this->getParameters($shape);
         $current = [
             'type' => strtolower($this->calculator->shape($shape)),
@@ -67,22 +64,26 @@ class Result
      */
     public function shapes(): array
     {
-        $data = [];
+        $types = [];
+        $params = [];
         if (!$this->calculator instanceof Calculator) {
-            throw new Exception('Calculator invalid exception '. gettype($this->calculator), 1);
+            throw new Exception('Calculator invalid exception', 1);
         }
         foreach ($this->calculator->shapes as $shape) {
             $parameters = $this->getParameters($shape);
-            $current = [
-                'type' => strtolower($this->calculator->shape($shape)),
-                'surface' => round($shape->surface(), 2),
-                'diameter' => round($shape->diameter(), 2),
-                'circumference' => round($shape->circumference(), 2),
-            ];
-            $shape_data = array_merge($parameters, $current);
-            $data = array_push($parameters, $shape_data);
+            foreach ($parameters as $parameter => $value) {
+                $params[$parameter] = $value;
+            }
+            array_push($types, strtolower($this->calculator->shape($shape)));
         }
-        return $data;
+        $data = [
+            'type' => $types,
+            'surface' => round($this->calculator->sumSurface(), 2),
+            'diameter' => round($this->calculator->sumDiameter(), 2),
+            'circumference' => round($this->calculator->sumCircumference(), 2),
+        ];
+        $shape = array_merge($params, $data);
+        return $shape;
     }
 
     /**

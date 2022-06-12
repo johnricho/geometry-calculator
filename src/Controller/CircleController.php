@@ -9,11 +9,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Contracts\Service\ServiceSubscriberTrait;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CircleController extends AbstractController
 {
+    use ServiceSubscriberTrait;
+
     #[Route('/circle', name: 'circle')]
     public function index(): JsonResponse
     {

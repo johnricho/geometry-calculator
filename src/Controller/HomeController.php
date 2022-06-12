@@ -9,14 +9,16 @@ use App\Geometry\Calculator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Contracts\Service\ServiceSubscriberTrait;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
+    use ServiceSubscriberTrait;
 
     #[Route('/', name: 'welcome')]
-    public function index()
+    public function index(): JsonResponse
     {
         return $this->json([
             'status' => 'success',
@@ -29,10 +31,8 @@ class HomeController extends AbstractController
     public function calculator(Request $request): JsonResponse
     {
         try {
-            if ((!$request->query->has('radius') && !$request->query->has('a') &&
-                !$request->query->has('b') && !$request->query->has('c')) ||
-                (!$request->request->has('a') && !$request->request->has('b') && !$request->request->has('c')
-            )) {
+            if ((!$request->query->has('radius') || !$request->query->has('a') ||
+                !$request->query->has('b') || !$request->query->has('c'))) {
                 return $this->json([
                     'status' => 'success',
                     'message' => 'Shape data required',
@@ -40,8 +40,8 @@ class HomeController extends AbstractController
             }
 
             $shapes = [
-                new Circle($request->radius),
-                new Triangle($request->a, $request->b, $request->c)
+                new Circle($request->query->get('radius')),
+                new Triangle($request->query->get('a'), $request->query->get('b'), $request->query->get('c'))
             ];
             $calculator = new Calculator($shapes);
             $result = new Result($calculator);
